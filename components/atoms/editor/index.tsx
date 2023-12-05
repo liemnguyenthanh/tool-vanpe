@@ -1,26 +1,23 @@
 'use client'
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
+import { useRef } from "react";
+import { useEditorContext } from "@/providers";
 
 export const Editor = () => {
+  const editorRef = useRef<any>()
+  const { updateData } = useEditorContext()
+
   return (
     <div>
       <CKEditor
         editor={ClassicEditor}
-        data="<p>Hello from CKEditor&nbsp;5!</p>"
         onReady={editor => {
-          // You can store the "editor" and use when it is needed.
-          console.log('Editor is ready to use!', editor);
+          editorRef.current = editor
         }}
         onChange={(event) => {
-          console.log(event);
-        }}
-        onBlur={(event, editor) => {
-          console.log('Blur.', editor);
-        }}
-        onFocus={(event, editor) => {
-          console.log('Focus.', editor);
+          const editorData = editorRef.current.getData();
+          updateData(editorData)
         }}
       />
     </div>

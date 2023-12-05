@@ -1,2 +1,2 @@
 // HOME
-export * from './home/CovertText'
+export * from './home/ConvertText'
